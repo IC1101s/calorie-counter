@@ -59,7 +59,7 @@ body {
 }
 
 html {
-  min-width: 1160px;
+  /*min-width: 1160px;*/
 }
 
 body {
@@ -173,10 +173,11 @@ input[type="number"] {
 
 .container {
   width: 100%;
-  max-width: 1160px;
+  max-width: 620px;
+  /* max-width: 1160px;*/
   margin: 0 auto;
-  padding-right: 300px;
-  padding-left: 300px;
+  padding-right: 30px; /* 300px */
+  padding-left: 30px; /* 300px */
 }
 
 .container--no-padding {
@@ -645,4 +646,81 @@ input[type="number"] {
   color: var(--color-gray-lighter);
 
   cursor: not-allowed;
+}
+
+@media (max-width: 619px) {
+  .heading-main {
+    font-size: 54px;
+    line-height: 63px;
+  }
+
+  .heading {
+    font-size: 26px;
+    line-height: 35px;
+  }
+
+  .inputs-group {
+    flex-direction: column;
+  }
+
+  .inputs-group .input:nth-child(2) {
+    margin-left: 0;
+    margin-right: 0;
+  }
+
+  .input {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+  }
+
+  .input:not(:last-child) {
+    margin-bottom: 20px;
+  }
+
+  .input__heading {
+    margin-bottom: 0;
+  }
+  
+  .radio__wrapper label {
+    font-size: 18px;
+  }
+
+  .radio__description {
+    font-size: 14px;
+  }
+
+  .form__submit {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .form__submit-button {
+    margin-bottom: 30px;
+  }
+
+  .form__reset-button {
+    margin-left: 0;
+    line-height: 24px;
+  }
+
+  .counter__result > .heading {
+    margin-bottom: 32px;
+  }
+
+  .counter__result-list {
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+  }
+
+  .counter__result-item {
+    text-align: center;
+  }
+
+  .counter__result-item:not(:last-child) {
+    margin-bottom: 25px;
+  }
 }

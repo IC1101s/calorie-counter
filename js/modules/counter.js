@@ -107,7 +107,7 @@ resetButton.addEventListener('click', function () {
 	resetButton.disabled = true;
 	submitButton.disabled = true;
 
-	form.scrollIntoView({block: 'center', behavior: 'smooth'});
+	form.scrollIntoView({block: 'start', behavior: 'smooth'});
 });
 
 
