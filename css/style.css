@@ -173,11 +173,11 @@ input[type="number"] {
 
 .container {
   width: 100%;
-  max-width: 620px;
+  max-width: 600px;
   /* max-width: 1160px;*/
   margin: 0 auto;
-  padding-right: 30px; /* 300px */
-  padding-left: 30px; /* 300px */
+  padding-right: 20px; /* 300px */
+  padding-left: 20px; /* 300px */
 }
 
 .container--no-padding {
@@ -648,7 +648,11 @@ input[type="number"] {
   cursor: not-allowed;
 }
 
-@media (max-width: 619px) {
+@media (max-width: 600px) {
+  .page {
+    min-width: 340px;
+  }
+
   .heading-main {
     font-size: 54px;
     line-height: 63px;
@@ -722,5 +726,16 @@ input[type="number"] {
 
   .counter__result-item:not(:last-child) {
     margin-bottom: 25px;
+  }
+}
+
+@media (max-width: 339px) {
+  .page {
+    min-width: 320px;
+  }
+
+  .container {
+    padding-right: 10px;
+    padding-left: 10px; 
   }
 }
