@@ -1,6 +1,6 @@
 const form = document.querySelector('.counter__form');
-const submitButton = document.querySelector('.form__submit-button');
-const resetButton = document.querySelector('.form__reset-button');
+const submitButton = form.querySelector('.form__submit-button');
+const resetButton = form.querySelector('.form__reset-button');
 const counterResult = document.querySelector('.counter__result');
 
 const parameters = document.querySelectorAll('.form__parameters input');

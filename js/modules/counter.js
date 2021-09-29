@@ -27,34 +27,33 @@ const ageParameter = parameters[0];
 const heightParameter = parameters[1];
 const weightParameter = parameters[2];
 
-const submitButton = document.querySelector('.form__submit-button');
-const counterResult = document.querySelector('.counter__result');
 const genderMale = document.querySelector('#gender-male');
 const genderFemale = document.querySelector('#gender-female');
 const activitys = document.querySelectorAll('[name="activity"]');
-const caloriesNorm = document.querySelector('#calories-norm');
-const caloriesMinimal = document.querySelector('#calories-minimal');
-const caloriesMaximal = document.querySelector('#calories-maximal');
-
-const countResult = function (mainFormula, caloriesFormula, isCoefficient) {
-	if (isCoefficient) {
-		return Math.round((mainFormula + caloriesFormula) * isCoefficient);
-	}
-	
-	return Math.round(mainFormula * caloriesFormula);
-};
+const submitButton = document.querySelector('.form__submit-button');
+const counterResult = document.querySelector('.counter__result');
+const resultItems = counterResult.querySelectorAll('.counter__result-item span')
 
 const getDataOutput = function () {	
 	const age = CaloriesFormulaFactor.AGE * ageParameter.value;
 	const height = CaloriesFormulaFactor.HEIGHT * heightParameter.value;
 	const weight = CaloriesFormulaFactor.WEIGHT * weightParameter.value;
+
 	const mainFormula = weight + height - age;
 
-	if (counterResult.classList.contains('counter__result--hidden')) {
-		counterResult.classList.remove('counter__result--hidden');
-	}
+	const countResult = function (index, caloriesNormResult) {
+		if (index === 1) {
+			return Math.round(caloriesNormResult * CaloriesMinMaxRatio.MIN);
+		} else if (index === 2) {
+			return Math.round(caloriesNormResult * CaloriesMinMaxRatio.MAX);
+		}
 
-	counterResult.scrollIntoView({block: 'center', behavior: 'smooth'});
+		return caloriesNormResult;
+	};
+
+	const resultContent = function (element, result) { 
+		return element.textContent = result;
+	};
 
 	let coefficient;
 	for (let i = 0; i < activitys.length; i++) {
@@ -62,19 +61,26 @@ const getDataOutput = function () {
 			coefficient = Coefficient[activitys[i].value.toUpperCase()];
 		}
 	}
-	
-	const caloriesNormMale = countResult(mainFormula, CaloriesFormulaConstant.MALE, coefficient);
-	const caloriesNormFemale = countResult(mainFormula, CaloriesFormulaConstant.FEMALE, coefficient);
-	
-	if (genderMale.checked) {
-		caloriesNorm.textContent = caloriesNormMale;
-		caloriesMinimal.textContent = countResult(caloriesNormMale, CaloriesMinMaxRatio.MIN);
-		caloriesMaximal.textContent = countResult(caloriesNormMale, CaloriesMinMaxRatio.MAX);
-	} else if (genderFemale.checked) {
-		caloriesNorm.textContent = caloriesNormFemale;
-		caloriesMinimal.textContent = countResult(caloriesNormFemale, CaloriesMinMaxRatio.MIN);
-		caloriesMaximal.textContent = countResult(caloriesNormFemale, CaloriesMinMaxRatio.MAX);
+
+	for (let i = 0; i < resultItems.length; i++) {
+		if (genderMale.checked) {	
+			resultContent(
+				resultItems[i], 
+				countResult(i, Math.round((mainFormula + CaloriesFormulaConstant.MALE) * coefficient))
+			);
+		} else {
+			resultContent(
+				resultItems[i], 
+				countResult(i, Math.round((mainFormula + CaloriesFormulaConstant.FEMALE) * coefficient))
+			);
+		}	
 	}
+
+	if (counterResult.classList.contains('counter__result--hidden')) {
+		counterResult.classList.remove('counter__result--hidden');
+	}
+
+	counterResult.scrollIntoView({block: 'center', behavior: 'smooth'});
 };
 
 submitButton.addEventListener('click', function (evt) {
