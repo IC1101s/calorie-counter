@@ -8,25 +8,30 @@ const ageParameter = parameters[0];
 const heightParameter = parameters[1];
 const weightParameter = parameters[2];
 
-const isDisabled = function () {
-	if (ageParameter.value !== '' && heightParameter.value !== '' && weightParameter.value !== '') {
+const onInputsIsDisabled = function (evt) {	
+	if (ageParameter.value && heightParameter.value && weightParameter.value) {
 		submitButton.disabled = false;
 	} else {
 		submitButton.disabled = true;
 	}
 
-	if (ageParameter.value !== '' || heightParameter.value !== '' || weightParameter.value !== '') {
+	if (ageParameter.value || heightParameter.value || weightParameter.value) {
 		resetButton.disabled = false;
 	} else {
 		resetButton.disabled = true;
 	}
+	
+	for (let i = 0; i < parameters.length; i++) {
+		if (parameters[i].validity.rangeOverflow) {
+			submitButton.disabled = true;
+			parameters[i].reportValidity();
+		}
+	}
+
+	evt.target.reportValidity();
 };
 
-for (let i = 0; i < parameters.length; i++) {
-	parameters[i].addEventListener('input', function () {
-		isDisabled();
-	});
-}
+form.addEventListener('input', onInputsIsDisabled);
 
 const clearData = function () {
 	if (!counterResult.classList.contains('counter__result--hidden')) {
