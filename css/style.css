@@ -448,6 +448,10 @@ input[type="number"] {
   color: transparent;
 }
 
+.input-invalid:invalid {
+  border-color: red;
+}
+
 .inputs-group {
   display: flex;
   align-items: flex-start;
