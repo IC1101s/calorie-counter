@@ -8,7 +8,19 @@ const ageParameter = parameters[0];
 const heightParameter = parameters[1];
 const weightParameter = parameters[2];
 
-const onInputsIsDisabled = function (evt) {	
+const inputsIsValidity = function () {
+	for (let i = 0; i < parameters.length; i++) {
+		if (parameters[i].validity.rangeOverflow) {
+			submitButton.disabled = true;
+			parameters[i].reportValidity();
+			parameters[i].classList.add('input-invalid');
+		} else {
+			parameters[i].classList.remove('input-invalid');
+		}
+	}
+};
+
+const inputsIsDisabled = function () {	
 	if (ageParameter.value && heightParameter.value && weightParameter.value) {
 		submitButton.disabled = false;
 	} else {
@@ -20,20 +32,15 @@ const onInputsIsDisabled = function (evt) {
 	} else {
 		resetButton.disabled = true;
 	}
-	
-	for (let i = 0; i < parameters.length; i++) {
-		if (parameters[i].validity.rangeOverflow) {
-			submitButton.disabled = true;
-			parameters[i].reportValidity();
-		}
-	}
 
-	evt.target.reportValidity();
+	inputsIsValidity();
 };
 
-form.addEventListener('input', onInputsIsDisabled);
+form.addEventListener('input', function () {
+	inputsIsDisabled();
+});
 
-const clearData = function () {
+const returnDefaultValues = function () {
 	if (!counterResult.classList.contains('counter__result--hidden')) {
 		counterResult.classList.add('counter__result--hidden');
 	}
@@ -43,9 +50,15 @@ const clearData = function () {
 	resetButton.disabled = true;
 	submitButton.disabled = true;
 
+	for (let i = 0; i < parameters.length; i++) {
+		if (parameters[i].classList.contains('input-invalid')) {
+			parameters[i].classList.remove('input-invalid');
+		}
+	}
+
 	form.scrollIntoView({block: 'start', behavior: 'smooth'});
 };
 
 resetButton.addEventListener('click', function () {
-	clearData();
+	returnDefaultValues();
 });

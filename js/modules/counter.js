@@ -41,7 +41,7 @@ const getDataOutput = function () {
 
 	const mainFormula = weight + height - age;
 
-	const countResult = function (index, caloriesNormResult) {
+	const getCountResult = function (index, caloriesNormResult) {
 		if (index === 1) {
 			return Math.round(caloriesNormResult * CaloriesMinMaxRatio.MIN);
 		} else if (index === 2) {
@@ -51,7 +51,7 @@ const getDataOutput = function () {
 		return caloriesNormResult;
 	};
 
-	const resultContent = function (element, result) { 
+	const getResultContent = function (element, result) { 
 		return element.textContent = result;
 	};
 
@@ -64,14 +64,14 @@ const getDataOutput = function () {
 
 	for (let i = 0; i < resultItems.length; i++) {
 		if (genderMale.checked) {	
-			resultContent(
+			getResultContent(
 				resultItems[i], 
-				countResult(i, Math.round((mainFormula + CaloriesFormulaConstant.MALE) * coefficient))
+				getCountResult(i, Math.round((mainFormula + CaloriesFormulaConstant.MALE) * coefficient))
 			);
 		} else {
-			resultContent(
+			getResultContent(
 				resultItems[i], 
-				countResult(i, Math.round((mainFormula + CaloriesFormulaConstant.FEMALE) * coefficient))
+				getCountResult(i, Math.round((mainFormula + CaloriesFormulaConstant.FEMALE) * coefficient))
 			);
 		}	
 	}
